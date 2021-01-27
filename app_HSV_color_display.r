@@ -269,17 +269,13 @@ app$callback(
         selected_color <- c(H, S, V)
         row_index <- order(apply(shades[4:6], 1, get_distance, selected_color))[1:5]
         most_similar_hex_colors <- shades[row_index, "hex"]
-        return(
-            list(
-                list("background-color" = most_similar_hex_colors$hex[1]),
-                list("background-color" = most_similar_hex_colors$hex[2]),
-                list("background-color" = most_similar_hex_colors$hex[3]),
-                list("background-color" = most_similar_hex_colors$hex[4]),
-                list("background-color" = most_similar_hex_colors$hex[5])
-            )
-        )
+        styles <- map(most_similar_hex_colors$hex, function(data) list("background-color" = data))
+        return(styles)
     }
 )
+
+# concatenate the results of 2-column dataframe
+concat_data <- function(data) paste0(data[1], ", ", data[2])
 
 # display the top 5 similar color based on 3D euclidean distance
 app$callback(
@@ -294,21 +290,9 @@ app$callback(
     function(H, S, V) {
         selected_color <- c(H, S, V)
         row_index <- order(apply(shades[4:6], 1, get_distance, selected_color))[1:5]
-        most_similar_hex_colors <- shades[row_index, "hex"]
-        return(
-            list(
-                paste0(most_similar_color_countries$hex[1], ", ",
-                       most_similar_color_countries$country[1]),
-                paste0(most_similar_color_countries$hex[2], ", ",
-                       most_similar_color_countries$country[2]),
-                paste0(most_similar_color_countries$hex[3], ", ",
-                       most_similar_color_countries$country[3]),
-                paste0(most_similar_color_countries$hex[4], ", ",
-                       most_similar_color_countries$country[4]),
-                paste0(most_similar_color_countries$hex[5], ", ",
-                       most_similar_color_countries$country[5])
-            )
-        )
+        most_similar_color_countries <- shades[row_index, c("hex", "country")]
+        hex_country_list <- as.list(apply(most_similar_color_countries, 1, concat_data))
+        return(hex_country_list)
     }
 )
 
