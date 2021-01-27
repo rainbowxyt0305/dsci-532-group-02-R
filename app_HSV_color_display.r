@@ -187,8 +187,7 @@ app$layout(
                     htmlDiv(
                         className = "two columns",
                         list(
-                            htmlH1(id = "match_1", className="round-square",
-                                   style = list('background-color' = "blue")),
+                            htmlH1(id = "match_1", className="round-square"),
                             htmlP(id = "match_1_color"),
                             htmlP(id = "match_1_text")
                         )
@@ -196,8 +195,7 @@ app$layout(
                     htmlDiv(
                         className = "round-square two columns offset-by-half ",
                         list(
-                            htmlH1(id = "match_2", className="round-square",
-                                   style = list('background-color' = "purple")),
+                            htmlH1(id = "match_2", className="round-square"),
                             htmlP(id = "match_2_color"),
                             htmlP(id = "match_2_text")
                         )
@@ -205,8 +203,7 @@ app$layout(
                     htmlDiv(
                         className = "round-square two columns offset-by-half",
                         list(
-                            htmlH1(id = "match_3", className="round-square",
-                                   style = list('background-color' = "yellow")),
+                            htmlH1(id = "match_3", className="round-square"),
                             htmlP(id = "match_3_color"),
                             htmlP(id = "match_3_text")
                         )
@@ -214,8 +211,7 @@ app$layout(
                     htmlDiv(
                         className = "round-square two columns offset-by-half",
                         list(
-                            htmlH1(id = "match_4", className="round-square",
-                                   style = list('background-color' = "green")),
+                            htmlH1(id = "match_4", className="round-square"),
                             htmlP(id = "match_4_color"),
                             htmlP(id = "match_4_text")
                         )
@@ -223,8 +219,7 @@ app$layout(
                     htmlDiv(
                         className = "round-square two columns offset-by-half",
                         list(
-                            htmlH1(id = "match_5", className="round-square",
-                                   style = list('background-color' = "red")),
+                            htmlH1(id = "match_5", className="round-square"),
                             htmlP(id = "match_5_color"),
                             htmlP(id = "match_5_text")
                         )
@@ -281,6 +276,37 @@ app$callback(
                 list("background-color" = most_similar_hex_colors$hex[3]),
                 list("background-color" = most_similar_hex_colors$hex[4]),
                 list("background-color" = most_similar_hex_colors$hex[5])
+            )
+        )
+    }
+)
+
+# display the top 5 similar color based on 3D euclidean distance
+app$callback(
+    list(output('match_1_color', 'children'),
+         output('match_2_color', 'children'),
+         output('match_3_color', 'children'),
+         output('match_4_color', 'children'),
+         output('match_5_color', 'children')),
+    list(input('slider_hue', 'value'),
+         input('slider_saturation', 'value'),
+         input('slider_value_brightness', 'value')),
+    function(H, S, V) {
+        selected_color <- c(H, S, V)
+        row_index <- order(apply(shades[4:6], 1, get_distance, selected_color))[1:5]
+        most_similar_hex_colors <- shades[row_index, "hex"]
+        return(
+            list(
+                paste0(most_similar_color_countries$hex[1], ", ",
+                       most_similar_color_countries$country[1]),
+                paste0(most_similar_color_countries$hex[2], ", ",
+                       most_similar_color_countries$country[2]),
+                paste0(most_similar_color_countries$hex[3], ", ",
+                       most_similar_color_countries$country[3]),
+                paste0(most_similar_color_countries$hex[4], ", ",
+                       most_similar_color_countries$country[4]),
+                paste0(most_similar_color_countries$hex[5], ", ",
+                       most_similar_color_countries$country[5])
             )
         )
     }
