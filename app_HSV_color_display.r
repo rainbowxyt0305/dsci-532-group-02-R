@@ -277,7 +277,7 @@ app$callback(
 # concatenate the results of 2-column dataframe
 concat_data <- function(data) paste0(data[1], ", ", data[2])
 
-# display the top 5 similar color based on 3D euclidean distance
+# display the top 5 similar products' hex and country based on 3D euclidean distance
 app$callback(
     list(output('match_1_color', 'children'),
          output('match_2_color', 'children'),
@@ -293,6 +293,25 @@ app$callback(
         most_similar_color_countries <- shades[row_index, c("hex", "country")]
         hex_country_list <- as.list(apply(most_similar_color_countries, 1, concat_data))
         return(hex_country_list)
+    }
+)
+
+# display the top 5 similar products' brand and product name based on 3D euclidean distance
+app$callback(
+    list(output('match_1_text', 'children'),
+         output('match_2_text', 'children'),
+         output('match_3_text', 'children'),
+         output('match_4_text', 'children'),
+         output('match_5_text', 'children')),
+    list(input('slider_hue', 'value'),
+         input('slider_saturation', 'value'),
+         input('slider_value_brightness', 'value')),
+    function(H, S, V) {
+        selected_color <- c(H, S, V)
+        row_index <- order(apply(shades[4:6], 1, get_distance, selected_color))[1:5]
+        most_similar_color_product_info <- shades[row_index, c("brand", "product")]
+        product_info_list <- as.list(apply(most_similar_color_product_info, 1, concat_data))
+        return(product_info_list)
     }
 )
 
