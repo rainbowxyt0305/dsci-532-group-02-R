@@ -1,27 +1,17 @@
-library(plotly)
 library(dash)
 library(dashCoreComponents)
 library(dashHtmlComponents)
+library(ggplot2)
+library(tidyverse)
+library(plotly)
 
 app <- Dash$new()
+shades <- read_csv("data/processed/shades_processed.csv")
 
 app$layout(
     htmlDiv(
         className = "ten columns offset-by-half",
         list(
-            htmlDiv(
-                className = "row",
-                list(
-                    htmlH2('Foundation Shades Across the Globe',
-                        className = "nine columns"
-                    ),
-                    htmlDiv("What is the range and distribution of makeup foundations shades
-                        offered by each of the best - selling cosmetics brands across the globe ",
-                        className = "ten columns",
-                        style = list('marginLeft' = 0)
-                    )
-                ),
-            ),
             htmlDiv(
                 className = "row",
                 list(
@@ -32,10 +22,12 @@ app$layout(
                             dccDropdown(
                                 id = 'dropdown_best_seller_shades_by_countries',
                                 options = list(
-                                    list(label = "New York City", value = "NYC"),
-                                    list(label = "San Francisco", value = "SF")
+                                    list(label = "US", value = "US"),
+                                    list(label = "Nigeria", value = "Nigeria"),
+                                    list(label = "India", value = "India"),
+                                    list(label = "Japan", value = "Japan")
                                 ),
-                                value = list("SF", "NYC"),
+                                value = list("US", "India"),
                                 multi = TRUE
                             )
                         )
@@ -44,14 +36,17 @@ app$layout(
                         className = "six columns",
                         list(
                             htmlH6('Best Selling Brands by Country:'),
-                            dccDropdown(
+                            dccRadioItems(
                                 id = 'radio_button_best_selling_brand_by_country',
                                 options = list(
-                                    list(label = "New York City", value = "NYC"),
-                                    list(label = "San Francisco", value = "SF")
+                                    list(label = "US", value = "US"),
+                                    list(label = "Nigeria", value = "Nigeria"),
+                                    list(label = "India", value = "India"),
+                                    list(label = "Japan", value = "Japan")
                                 ),
-                                value = list("SF", "NYC"),
-                                multi = TRUE
+                                labelStyle = list(display = 'inline-block'),
+                                value = "US"
+                                
                             )
                         )
                     )
@@ -64,8 +59,7 @@ app$layout(
                         className = "six columns",
                         list(
                             dccGraph(
-                                id = 'histogram_best_seller_by_country',
-                                figure = plot_ly(x = ~rnorm(50), type = "histogram")
+                                id = 'histogram_best_seller_by_country'
                             )
                         ),
                         style = list('marginLeft' = 0)
@@ -73,9 +67,7 @@ app$layout(
                     htmlDiv(
                         className = "six columns",
                         list(
-                            dccGraph(
-                                id = 'histogram_best_seller_brand_by_country', 
-                                figure = plot_ly(x = ~rnorm(50), type = "histogram")
+                            dccGraph(id = 'histogram_best_seller_brand_by_country'
                             )
                         ),
                         style = list('marginLeft' = 0)
@@ -86,4 +78,18 @@ app$layout(
     )
 )
 
-app$run_server(debug = T)
+
+app$callback(
+    output('histogram_best_seller_by_country', 'figure'),
+    list(input('dropdown_best_seller_shades_by_countries', 'value')),
+    function(input_country) {
+        p <- ggplot(shades %>% filter(country %in% input_country),
+                    aes(x = Lightness, color = country)) +
+            geom_histogram(fill= NA, bins = 30) + 
+            xlim(0, 100) +
+            theme_bw()
+        ggplotly(p, tooltip = 'text')
+    }
+)
+
+app$run_server(debug = F)
