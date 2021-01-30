@@ -8,6 +8,9 @@ library(ggplotly)
 
 app <- Dash$new()
 
+# read csv
+shades <- read_csv("data/processed/shades_processed.csv")
+
 app$layout(
     htmlDiv(
         className = "ten columns offset-by-half",
@@ -59,7 +62,7 @@ app$layout(
                                 ),
                                 labelStyle = list(display = 'inline-block'),
                                 value = "US"
-                                
+
                             )
                         )
                     )
@@ -234,7 +237,7 @@ app$callback(
     function(input_country) {
         p <- ggplot(shades %>% filter(country %in% input_country),
                     aes(x = Lightness, color = country)) +
-            geom_histogram(fill= NA, bins = 30) + 
+            geom_histogram(fill= NA, bins = 30) +
             xlim(0, 100) +
             theme_bw()
         ggplotly(p, tooltip = 'text')
@@ -251,7 +254,7 @@ app$callback(
          geom_histogram(bins = 30, fill = NA) +
          xlim(0, 100) +
          theme_bw()
-    
+
     ggplotly(p, tooltip = 'text')
   }
 )
