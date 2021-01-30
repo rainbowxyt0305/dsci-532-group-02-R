@@ -40,7 +40,7 @@ Implementing dashboard in R is definitely not the same as implementing in python
 
 * instead of `@app.callback()`, R uses `app$callback()`.
 
-It has definitely been a learning experience for us to try to switch the dashboard coding style in the R way.
+Additionally, there is no dynamic re-scaling when filtering countries or brands on the legends of our histograms. It has definitely been a learning experience for us to implement our dashboard in R.
 
 ### 4. Reflection on some feedback we received and how it has impacted our dashboard
 
