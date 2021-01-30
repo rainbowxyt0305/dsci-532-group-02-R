@@ -1,6 +1,6 @@
 # Foundation Shades Across the Globe App 
 
--   App link: https://foundation-product-dashboard.herokuapp.com/
+-   App link: https://foundation-across-globe-rdash.herokuapp.com/
 
 -   Author: Ela Bandari, Ling (Elina) Lin, Kangbo Lu, Rachel Xu
 
@@ -14,11 +14,5 @@ This interactive app consists of visualization charts (histograms and color card
 #### *1. Filter foundation lightness histograms by country:*  
 ![](./data/gif_tutorials/filter_by_country.gif)
 
-#### *2. Single or double click on legend to filter categories:*  
-![](./data/gif_tutorials/select_legend_categories.gif)
-
-#### *3. Use your mouse to select regions:*  
-![](./data/gif_tutorials/select_region_with_mouse.gif)
-
-#### *4. Use foundation HSV value slider to find matching products by color:*  
+#### *2. Use foundation HSV value slider to find matching products by color:*  
 ![](./data/gif_tutorials/select_color_by_HSV.gif)
