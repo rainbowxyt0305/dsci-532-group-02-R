@@ -26,7 +26,7 @@ Implementing dashboard in R is definitely not the same as implementing in python
   
   * Python: `app = dash.Dash()` vs. R: `app <- Dash$new()`;
 
-* instead of `.`, R sometimes uses $ and sometimes just omits the `.`:
+* instead of `.`, R sometimes uses `$` and sometimes just omits the `.`:
   
   * Python: `app.layout = ...` vs. R: `app$layout(...)`;
   
@@ -44,5 +44,5 @@ It has definitely been a learning experience for us to try to switch the dashboa
 
 ### 4. Reflection on some feedback we received and how it has impacted our dashboard
 
-One of the feedback we received from Joel is to tweak the stylistic layout of our histograms, so that it is more aesthetic appealing to the eyes and less color-clustered. After carefully discussing about this suggestion among the team, and assessing whether this change would align with our strategic goal of our dashboard, we implemented the change! The change in the color layout and the design of our histograms has been reflected on our current Milestone 3 dashboard app.    
+A piece of feedback we received from Joel was to tweak the stylistic layout of our histograms, so that it is more aesthetic appealing to the eyes and less color-clustered. After carefully discussing this suggestion among the team, and assessing whether this change would align with our strategic goal of our dashboard, we implemented the change! The change in the color layout and the design of our histograms has been reflected on our current Milestone 3 dashboard app.    
 
