@@ -4,8 +4,6 @@ library(dashCoreComponents)
 library(dashHtmlComponents)
 library(tidyverse)
 library(colorspace)
-library(ggplot2)
-library(ggplotly)
 
 app <- Dash$new()
 
