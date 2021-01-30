@@ -2,6 +2,7 @@ library(plotly)
 library(dash)
 library(dashCoreComponents)
 library(dashHtmlComponents)
+library(tidyverse)
 library(colorspace)
 library(ggplot2)
 library(ggplotly)
@@ -344,4 +345,4 @@ app$callback(
     }
 )
 
-app$run_server()
+app$run_server(host = '0.0.0.0')
