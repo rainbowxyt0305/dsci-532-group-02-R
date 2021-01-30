@@ -44,5 +44,4 @@ Additionally, there is no dynamic re-scaling when filtering countries or brands 
 
 ### 4. Reflection on some feedback we received and how it has impacted our dashboard
 
-A piece of feedback we received from Joel was to tweak the stylistic layout of our histograms, so that it is more aesthetic appealing to the eyes and less color-clustered. After carefully discussing this suggestion among the team, and assessing whether this change would align with our strategic goal of our dashboard, we implemented the change! The change in the color layout and the design of our histograms has been reflected on our current Milestone 3 dashboard app.    
-
+A piece of feedback we received from Joel was to tweak the stylistic layout of our histograms, so that it is more aesthetic appealing to the eyes and less color-clustered. After carefully discussing this suggestion among the team, and assessing whether this change would align with our strategic goal of our dashboard, we implemented the change by showing the outline of the histograms instead. The change has been reflected on our current Milestone 3 dashboard app.
